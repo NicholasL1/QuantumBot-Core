@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const axios = require("axios");
 
+// Delete created user from DB
 exports.deleteUser = functions.auth.user().onDelete((user) => {
   axios.delete("https://api.chatengine.io/users/me/", {
     headers: {

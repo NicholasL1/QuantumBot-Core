@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const axios = require("axios");
 
+// Create user endpoint for when a user is registered with google sign in
 exports.createUser = functions.auth.user().onCreate((user) => {
   axios.post(
     "https://api.chatengine.io/users/",
