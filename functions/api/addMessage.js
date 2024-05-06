@@ -1,11 +1,8 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable object-curly-spacing */
-/* eslint-disable indent */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { logger } = functions;
 
-exports.addMessage = functions.https.onCall(async (data, context) => {
+exports.addMessage = functions.https.onCall(async (data) => {
   try {
     logger.log("Received message request data:", data);
 
