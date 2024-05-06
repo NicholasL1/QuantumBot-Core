@@ -6,6 +6,7 @@ interface ChatProps {
   user: User;
 }
 
+// Use firebaseAuth User to get signed in user
 export default function Page(props: ChatProps) {
   return (
     <div style={{ height: "100vh" }}>

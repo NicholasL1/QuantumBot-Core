@@ -1,6 +1,7 @@
 import { auth } from "../../firebase";
 import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 
+// Firebase UI, on log in or sign up click use google redirect
 export default function AuthPage() {
   const onClick = () => {
     signInWithRedirect(auth, new GoogleAuthProvider());
