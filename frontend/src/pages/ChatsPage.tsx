@@ -2,6 +2,8 @@ import { auth } from "../../firebase";
 import { signOut, User } from "firebase/auth";
 import { PrettyChatWindow } from "react-chat-engine-pretty";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 interface ChatProps {
   user: User;
 }
@@ -11,10 +13,11 @@ export default function Page(props: ChatProps) {
   return (
     <div style={{ height: "100vh" }}>
       <button
-        style={{ position: "absolute", top: "0px", left: "0px" }}
+        className="btn btn-primary btn-sm"
+        style={{ position: "absolute", top: "0px", right: "0px" }}
         onClick={() => signOut(auth)}
       >
-        Sign Out
+        <span className="glyphicon glyphicon-log-out"></span> Sign out
       </button>
       <PrettyChatWindow
         projectId={process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!}
