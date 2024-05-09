@@ -13,10 +13,9 @@ export default function Home() {
 
   // If the user hasn't loaded yet, return loading page
   if (user === undefined) {
-    console.log("undefined");
     return <Loading />;
-  } else if (user === null) { // If no user, return authentication page
-    console.log("null");
+  } else if (user === null) {
+    // If no user, return authentication page
     return <AuthPage />;
   } else {
     return <ChatsPage user={user} />; // Else return the chats page with the signed in user
