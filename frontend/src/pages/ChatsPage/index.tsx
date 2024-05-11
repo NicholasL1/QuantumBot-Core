@@ -3,6 +3,7 @@ import { CSSProperties } from "react";
 import { auth } from "../../../firebase";
 import { signOut, User } from "firebase/auth";
 import {
+  ChatCardProps,
   MultiChatSocket,
   MultiChatWindow,
   useMultiChatLogic,
@@ -17,6 +18,7 @@ import valley from "../../assets/valley.jpeg";
 // Component imports
 import Sidebar from "./components/Sidebar";
 import UserSearch from "./components/UserSearch";
+import ChatCard from "./components/ChatCard";
 
 // Styling
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -88,7 +90,19 @@ export default function Page(props: ChatProps) {
                   }
                 />
               )}
-              style={{ height: "100%" }}
+              renderChatCard={(props: ChatCardProps) => (
+                <ChatCard
+                  {...props}
+                  username={chatProps.username}
+                  onChatCardClick={chatProps.onChatCardClick}
+                  isActive={
+                    props.chat !== undefined &&
+                    chatProps.activeChatId === props.chat.id
+                  }
+                  chat={props.chat}
+                />
+              )}
+              // renderChatHeader
             />
           </div>
         </div>
