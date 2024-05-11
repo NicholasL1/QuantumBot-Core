@@ -19,9 +19,9 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <div style={{ textAlign: "center" }}>
       <div className="ce-sidebar-menu">
-        <FontAwesomeIcon icon={faHouse as IconProp} />
-        <FontAwesomeIcon icon={faMessage as IconProp} />
-        <FontAwesomeIcon icon={faGear as IconProp} />
+        <FontAwesomeIcon icon={faHouse as IconProp} color="grey" />
+        <FontAwesomeIcon icon={faMessage as IconProp} color="grey" />
+        <FontAwesomeIcon icon={faGear as IconProp} color="grey" />
       </div>
 
       <Avatar
@@ -31,10 +31,10 @@ export default function Sidebar(props: SidebarProps) {
             ? props.user.photoURL
             : undefined
         } // Avatar = photoURL, username = email
-        username={props.user?.email!}
+        username={props.user?.displayName! || props.user.email!}
         isOnline={true}
       />
-      <FontAwesomeIcon icon={faRightFromBracket as IconProp} />
+      <FontAwesomeIcon icon={faRightFromBracket as IconProp} color="grey" />
     </div>
   );
 }

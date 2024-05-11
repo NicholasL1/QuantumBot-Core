@@ -2,7 +2,11 @@ import { CSSProperties } from "react";
 
 import { auth } from "../../../firebase";
 import { signOut, User } from "firebase/auth";
-import { MultiChatWindow, useMultiChatLogic } from "react-chat-engine-advanced";
+import {
+  MultiChatSocket,
+  MultiChatWindow,
+  useMultiChatLogic,
+} from "react-chat-engine-advanced";
 
 // Functions
 import { useIsMobile } from "../../functions/isMobile";
@@ -12,9 +16,11 @@ import valley from "../../assets/valley.jpeg";
 
 // Component imports
 import Sidebar from "./components/Sidebar";
+import UserSearch from "./components/UserSearch";
 
-// Bootstrap styling
+// Styling
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/theme.module.css";
 
 interface ChatProps {
   user: User;
@@ -24,7 +30,7 @@ interface ChatProps {
 export default function Page(props: ChatProps) {
   const chatProps = useMultiChatLogic(
     process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!,
-    props.user.email!,
+    props.user.displayName!,
     props.user.uid
   );
 
@@ -61,7 +67,30 @@ export default function Page(props: ChatProps) {
           >
             <Sidebar user={props.user} />
           </div>
-          <MultiChatWindow {...chatProps} style={{ height: "100%" }} />
+          <div
+            style={{
+              width: isMobile ? "100vw" : "calc(100vw - 6vw)",
+              position: "absolute",
+              top: "0px",
+              left: isMobile ? "0px" : "6vw",
+              height: "100%", // Fill parent height
+            }}
+          >
+            <MultiChatSocket {...chatProps} />
+            <MultiChatWindow
+              {...chatProps}
+              renderChatForm={() => (
+                <UserSearch
+                  username={chatProps.username}
+                  secret={chatProps.secret}
+                  onSelect={(chatId: number) =>
+                    chatProps.onChatCardClick(chatId)
+                  }
+                />
+              )}
+              style={{ height: "100%" }}
+            />
+          </div>
         </div>
       </div>
     </div>
