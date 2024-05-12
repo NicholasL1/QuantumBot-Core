@@ -1,12 +1,15 @@
 import { CSSProperties } from "react";
+import dynamic from "next/dynamic";
 
-import { auth } from "../../../firebase";
-import { signOut, User } from "firebase/auth";
+// import { auth } from "../../../firebase";
+import { User } from "firebase/auth";
 import {
-  ChatCardProps,
-  MultiChatSocket,
   MultiChatWindow,
+  MultiChatSocket,
   useMultiChatLogic,
+  MessageFormProps,
+  ChatCardProps,
+  ChatHeaderProps,
 } from "react-chat-engine-advanced";
 
 // Functions
@@ -19,6 +22,7 @@ import valley from "../../assets/valley.jpeg";
 import Sidebar from "./components/Sidebar";
 import UserSearch from "./components/UserSearch";
 import ChatCard from "./components/ChatCard";
+import ChatHeader from "./components/ChatHeader";
 
 // Styling
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,6 +34,14 @@ interface ChatProps {
 
 // Use firebaseAuth User to get signed in user
 export default function Page(props: ChatProps) {
+  // Dyanmic content to load from ant-design
+  // const UserSearch = dynamic(
+  //   async () => await import("./components/UserSearch"),
+  //   {
+  //     ssr: false,
+  //   }
+  // );
+
   const chatProps = useMultiChatLogic(
     process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!,
     props.user.displayName!,
@@ -67,7 +79,11 @@ export default function Page(props: ChatProps) {
               backgroundColor: "rgb(40,43,54)",
             }}
           >
-            <Sidebar user={props.user} />
+            <Sidebar
+              photoURL={props.user.photoURL!}
+              displayName={props.user.email!}
+              email={props.user.email!}
+            />
           </div>
           <div
             style={{
@@ -102,7 +118,14 @@ export default function Page(props: ChatProps) {
                   chat={props.chat}
                 />
               )}
-              // renderChatHeader
+              renderChatHeader={(props: ChatHeaderProps) => (
+                <ChatHeader
+                  {...props}
+                  chat={chatProps.chat}
+                  username={chatProps.username}
+                  secret={chatProps.secret}
+                />
+              )}
             />
           </div>
         </div>

@@ -2,8 +2,8 @@ import { useState, createContext, ReactNode } from "react";
 import { PersonObject } from "react-chat-engine-advanced";
 
 export interface ContextInterface {
-  user: PersonObject | undefined;
-  setUser: (u: PersonObject | undefined) => void;
+  user: PersonObject | null;
+  setUser: (u: PersonObject | null) => void;
 }
 
 interface ProviderInterface {
@@ -11,12 +11,12 @@ interface ProviderInterface {
 }
 
 export const Context = createContext<ContextInterface>({
-  user: undefined,
+  user: null,
   setUser: () => {},
 });
 
 export const ContextProvider = (props: ProviderInterface) => {
-  const [user, setUser] = useState<PersonObject | undefined>(undefined);
+  const [user, setUser] = useState<PersonObject | null>(null);
   const value = { user, setUser };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;

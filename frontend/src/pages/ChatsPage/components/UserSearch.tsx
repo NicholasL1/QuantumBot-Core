@@ -8,8 +8,6 @@ import axios from "axios";
 
 import { privateKey, projectId } from "../../../functions/constants";
 
-import { User } from "firebase/auth";
-
 interface CustomChatFormProps {
   username: string;
   secret: string;
@@ -34,7 +32,7 @@ export default function userSearch(props: CustomChatFormProps) {
         .then((r) => setUsers(r.data))
         .catch();
     }
-  });
+  }, []);
 
   const searchResult = (query: string) => {
     const foundUsers = users.filter(
