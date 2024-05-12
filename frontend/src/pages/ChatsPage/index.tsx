@@ -1,7 +1,5 @@
 import { CSSProperties } from "react";
-import dynamic from "next/dynamic";
 
-// import { auth } from "../../../firebase";
 import { User } from "firebase/auth";
 import {
   MultiChatWindow,
@@ -23,10 +21,7 @@ import Sidebar from "./components/Sidebar";
 import UserSearch from "./components/UserSearch";
 import ChatCard from "./components/ChatCard";
 import ChatHeader from "./components/ChatHeader";
-
-// Styling
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/theme.module.css";
+import MessageForm from "./components/MessageForm";
 
 interface ChatProps {
   user: User;
@@ -34,14 +29,6 @@ interface ChatProps {
 
 // Use firebaseAuth User to get signed in user
 export default function Page(props: ChatProps) {
-  // Dyanmic content to load from ant-design
-  // const UserSearch = dynamic(
-  //   async () => await import("./components/UserSearch"),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
-
   const chatProps = useMultiChatLogic(
     process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!,
     props.user.displayName!,
@@ -95,6 +82,7 @@ export default function Page(props: ChatProps) {
             }}
           >
             <MultiChatSocket {...chatProps} />
+
             <MultiChatWindow
               {...chatProps}
               renderChatForm={() => (
@@ -126,6 +114,11 @@ export default function Page(props: ChatProps) {
                   secret={chatProps.secret}
                 />
               )}
+              renderMessageForm={(props: MessageFormProps) => (
+                <MessageForm {...props} displayName={chatProps.username} />
+              )}
+              renderChatSettings={() => <div className="ce-empty-settings" />}
+              style={{ height: "100%" }}
             />
           </div>
         </div>

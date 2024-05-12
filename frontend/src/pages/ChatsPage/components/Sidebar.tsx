@@ -1,13 +1,5 @@
 import { auth } from "../../../../firebase";
-import { signOut, User } from "firebase/auth";
-
-// // Problem is with the ant-design icons, can maybe use bootstrap/font awesome icons instead?
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { IconProp } from "@fortawesome/fontawesome-svg-core";
-// import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-// import { faHouse } from "@fortawesome/free-solid-svg-icons";
-// import { faMessage } from "@fortawesome/free-solid-svg-icons";
-// import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "firebase/auth";
 
 // Icons
 import {
@@ -27,12 +19,12 @@ interface SidebarProps {
 
 export default function Sidebar(props: SidebarProps) {
   return (
-    <div style={{ textAlign: "center" }}>
-      <div className="ce-sidebar-menu">
+    <div style={{ textAlign: "center", width: "40vh" }}>
+      {/* <div className="ce-sidebar-menu">
         <HomeFilled className="ce-sidebar-icon" />
         <MessageFilled className="ce-sidebar-icon ce-sidebar-icon-active" />
         <SettingFilled className="ce-sidebar-icon" />
-      </div>
+      </div> */}
 
       <Avatar
         className="sidebar-avatar"
