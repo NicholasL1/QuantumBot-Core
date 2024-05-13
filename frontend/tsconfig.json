@@ -31,5 +31,7 @@
     "node_modules",
     "firebase/auth",
     "auth",
+    "firebase/app",
+    "app",
   ]
 }
