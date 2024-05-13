@@ -37,8 +37,10 @@ export default function userSearch(props: CustomChatFormProps) {
   const searchResult = (query: string) => {
     const foundUsers = users.filter(
       (user) =>
-        JSON.stringify(user).toLowerCase().indexOf(query.toLowerCase()) !==
-          -1 && user.first_name !== props.username
+        JSON.stringify(user.username)
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) !== -1 &&
+        user.username !== props.username
     );
 
     return foundUsers.map((user) => {
@@ -47,11 +49,11 @@ export default function userSearch(props: CustomChatFormProps) {
         label: (
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span>
-              <Avatar avatarUrl={user.avatar} username={user.username!} />
+              <Avatar avatarUrl={user.avatar} username={user.username} />
             </span>
             <span>
-              <div>{user.first_name}</div>
               <div>{user.username}</div>
+              <div>{user.email}</div>
             </span>
           </div>
         ),
@@ -95,7 +97,7 @@ export default function userSearch(props: CustomChatFormProps) {
       >
         <Input.Search
           size="large"
-          placeholder="Chats"
+          placeholder="Find Chat..."
           enterButton
           loading={loading}
           onChange={(e) => setQuery(e.target.value)}

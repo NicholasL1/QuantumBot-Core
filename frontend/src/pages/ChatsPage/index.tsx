@@ -1,7 +1,6 @@
 import { CSSProperties } from "react";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 
-// import { auth } from "../../../firebase";
 import { User } from "firebase/auth";
 import {
   MultiChatWindow,
@@ -23,10 +22,7 @@ import Sidebar from "./components/Sidebar";
 import UserSearch from "./components/UserSearch";
 import ChatCard from "./components/ChatCard";
 import ChatHeader from "./components/ChatHeader";
-
-// Styling
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/theme.module.css";
+import MessageForm from "./components/MessageForm";
 
 interface ChatProps {
   user: User;
@@ -34,14 +30,6 @@ interface ChatProps {
 
 // Use firebaseAuth User to get signed in user
 export default function Page(props: ChatProps) {
-  // Dyanmic content to load from ant-design
-  // const UserSearch = dynamic(
-  //   async () => await import("./components/UserSearch"),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
-
   const chatProps = useMultiChatLogic(
     process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!,
     props.user.displayName!,
@@ -52,21 +40,21 @@ export default function Page(props: ChatProps) {
   const isMobile: boolean = useIsMobile();
 
   // Background image
-  const backgroundImage = {
-    backgroundImage: `url(${valley})`,
-  } as CSSProperties;
 
   return (
-    <div className="background-image" style={backgroundImage}>
+    <div style={{ overflow: "hidden" }}>
+      <div className="background-image" style={{ zIndex: -1 }}>
+        <Image src={valley} alt="Valley" fill={true} objectFit="cover" />
+      </div>
       <div className="background-gradient-light">
         <div
           style={{
-            position: "relative",
+            position: "absolute",
             top: isMobile ? "0px" : "10vh",
             left: isMobile ? "0px" : "calc(50vw - 3vw - 1.5vw - 35vw)",
             height: isMobile ? "100vh" : "80vh",
             width: isMobile ? "100vw" : "calc(100vw - 10.5vw - 10.5vw)",
-            backgroundColor: "grey",
+            backgroundColor: "rgb(40, 43, 54)",
           }}
         >
           <div
@@ -86,6 +74,7 @@ export default function Page(props: ChatProps) {
             />
           </div>
           <div
+            className="chat-window"
             style={{
               width: isMobile ? "100vw" : "calc(100vw - 6vw)",
               position: "absolute",
@@ -95,6 +84,7 @@ export default function Page(props: ChatProps) {
             }}
           >
             <MultiChatSocket {...chatProps} />
+
             <MultiChatWindow
               {...chatProps}
               renderChatForm={() => (
@@ -126,6 +116,11 @@ export default function Page(props: ChatProps) {
                   secret={chatProps.secret}
                 />
               )}
+              renderMessageForm={(props: MessageFormProps) => (
+                <MessageForm {...props} displayName={chatProps.username} />
+              )}
+              renderChatSettings={() => <div className="ce-empty-settings" />}
+              style={{ height: "100%" }}
             />
           </div>
         </div>
