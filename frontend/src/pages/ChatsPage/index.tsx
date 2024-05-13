@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import Image from "next/image";
 
 import { User } from "firebase/auth";
 import {
@@ -39,21 +40,21 @@ export default function Page(props: ChatProps) {
   const isMobile: boolean = useIsMobile();
 
   // Background image
-  const backgroundImage = {
-    backgroundImage: `url(${valley})`,
-  } as CSSProperties;
 
   return (
-    <div className="background-image" style={backgroundImage}>
+    <div style={{ overflow: "hidden" }}>
+      <div className="background-image" style={{ zIndex: -1 }}>
+        <Image src={valley} alt="Valley" fill={true} objectFit="cover" />
+      </div>
       <div className="background-gradient-light">
         <div
           style={{
-            position: "relative",
+            position: "absolute",
             top: isMobile ? "0px" : "10vh",
             left: isMobile ? "0px" : "calc(50vw - 3vw - 1.5vw - 35vw)",
             height: isMobile ? "100vh" : "80vh",
             width: isMobile ? "100vw" : "calc(100vw - 10.5vw - 10.5vw)",
-            backgroundColor: "grey",
+            backgroundColor: "rgb(40, 43, 54)",
           }}
         >
           <div
@@ -73,6 +74,7 @@ export default function Page(props: ChatProps) {
             />
           </div>
           <div
+            className="chat-window"
             style={{
               width: isMobile ? "100vw" : "calc(100vw - 6vw)",
               position: "absolute",

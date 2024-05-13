@@ -1,9 +1,37 @@
 /* Importing VisbyRoundCF font */
 @import url('https://fonts.googleapis.com/css2?family=VisbyRoundCF:wght@400;700&display=swap');
 
+.background-image {
+  overflow-x: auto; /* or 'scroll' if you want to see the scrollbar */
+}
+
+.background-image::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+  height: 10px; /* height of the scrollbar */
+}
+
+.background-image::-webkit-scrollbar-track {
+  background: transparent; /* transparent background */
+}
+
+.background-image::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5); /* transparent color for the thumb */
+  border-radius: 5px; /* border radius of the thumb */
+}
+
+.chat-window {
+  width: 83vw !important;
+}
+
 .ce-chat-list {
   background-color: rgb(40, 43, 54) !important;
   padding-right: 0 !important;
+  overflow: hidden !important;
+}
+
+.ce-chat-list-column {
+  padding-right: 0 !important;
+  overflow: hidden !important;
 }
 
 .ce-chat-form {
@@ -96,6 +124,7 @@
 
 .ce-chat-feed-column {
   border: none !important;
+  overflow: hidden !important;
 }
 
 .ce-chat-feed {
@@ -106,10 +135,22 @@
   margin-top: 24px !important;
   margin-left: 12px !important;
   margin-right: 12px !important;
-  padding: 0 3.3vw !important;
+  padding: 0 2.0vw !important;
   background: linear-gradient(0deg, rgba(62, 64, 75, 1) 0%, rgba(62, 64, 75, 1) 75%, rgba(40, 43, 54, 1) 100%) !important;
   border-radius: 8px 8px 0 0 !important;
   height: calc(100% - 85px - 72px - 24px - 12px) !important;
+}
+
+.ce-message-list::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.ce-message-list::-webkit-scrollbar-track {
+  background-color: transparent; /* Transparent background for the track */
+}
+
+.ce-message-list::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Transparent background for the thumb */
 }
 
 .ce-message-date-text {
@@ -178,8 +219,14 @@
   left: 0 !important;
 }
 
+.ce-chat-settings-column {
+  overflow: hidden !important;
+}
+
 .ce-mobile-chat-settings-button {
   display: none !important;
+  overflow: hidden !important;
+  padding-right: 0% !important;
 }
 
 .ce-custom-chat-header {
@@ -255,6 +302,10 @@
   transition: all 0.44s ease;
 }
 
+.ce-custom-message-input:hover {
+  cursor: text;
+}
+
 .ce-custom-message-input:focus {
   box-shadow: rgba(64, 169, 255, 0.35) 0px 2px 7px;
   border: 1px solid #40a9ff;
@@ -275,7 +326,7 @@
   box-shadow: rgba(24, 144, 255, 0.35) 0px 5px 15px;
   position: absolute;
   top: 12px;
-  right: 3.3vw;
+  right: 1vw;
   transition: all 0.44s ease;
 }
 
@@ -289,6 +340,7 @@
 }
 
 .ce-sidebar-icon {
+  display: flex !important;
   width: 6vw;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -296,11 +348,12 @@
   color: rgb(153, 153, 153) !important;
   bottom: 66px;
   left: calc(50% - 22px) !important;
+  justify-content: center !important;
 }
 
 .ce-sidebar-icon-active {
   color: rgb(24, 144, 255) !important;
-  border-left: 2px solid rgb(24, 144, 255);
+  border-left: 1px solid rgb(24, 144, 255);
 }
 
 .sidebar-avatar {
@@ -364,6 +417,6 @@
 
 .ce-empty-settings {
   background-color: #282b36 !important;
-  width: 3vw;
+  width: 1vw;
   height: 100vh;
 }
