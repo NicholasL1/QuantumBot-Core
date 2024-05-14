@@ -14,7 +14,6 @@ import { Avatar } from "react-chat-engine-advanced";
 interface SidebarProps {
   photoURL: string;
   displayName: string;
-  email: string;
 }
 
 export default function Sidebar(props: SidebarProps) {
@@ -31,7 +30,7 @@ export default function Sidebar(props: SidebarProps) {
         avatarUrl={
           typeof props.photoURL === "string" ? props.photoURL : undefined
         } // Avatar = photoURL, username = email
-        username={props.displayName! || props.email!}
+        username={props.displayName!}
         isOnline={true}
       />
       <LogoutOutlined onClick={() => signOut(auth)} className="signout-icon" />

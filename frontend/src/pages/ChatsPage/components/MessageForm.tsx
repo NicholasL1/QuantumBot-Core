@@ -1,13 +1,10 @@
-import { useContext, useState } from "react";
-
-import { User } from "firebase/auth";
+import { useState } from "react";
 
 import { CaretUpFilled } from "@ant-design/icons";
 
 import { MessageObject, MessageFormProps } from "react-chat-engine-advanced";
 
 import { nowTimeStamp } from "../../../functions/dates";
-import { Context } from "../../../functions/context";
 
 interface CustomMessageFormProps extends MessageFormProps {
   displayName: string;

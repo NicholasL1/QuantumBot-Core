@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import Image from "next/image";
 
 import { User } from "firebase/auth";
@@ -25,15 +24,18 @@ import ChatHeader from "./components/ChatHeader";
 import MessageForm from "./components/MessageForm";
 
 interface ChatProps {
-  user: User;
+  user: User | null;
 }
 
 // Use firebaseAuth User to get signed in user
 export default function Page(props: ChatProps) {
+  // Handle case where props.user might be null
+  const user = props.user || { displayName: "", uid: "", photoURL: "" };
+
   const chatProps = useMultiChatLogic(
     process.env.NEXT_PUBLIC_CHAT_ENGINE_PROJECT_ID!,
-    props.user.displayName!,
-    props.user.uid
+    user.displayName!,
+    user.uid!
   );
 
   // If webpage in mobile mode
@@ -68,9 +70,8 @@ export default function Page(props: ChatProps) {
             }}
           >
             <Sidebar
-              photoURL={props.user.photoURL!}
-              displayName={props.user.email!}
-              email={props.user.email!}
+              photoURL={user.photoURL!}
+              displayName={user.displayName!}
             />
           </div>
           <div
