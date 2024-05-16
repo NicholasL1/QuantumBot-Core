@@ -24,6 +24,7 @@
     "react-chat-engine-advanced": "^0.1.28",
     "react-chat-engine-pretty": "^0.1.8",
     "react-dom": "^18",
+    "react-router-dom": "^6.23.1",
     "sharp": "^0.33.3"
   },
   "devDependencies": {
