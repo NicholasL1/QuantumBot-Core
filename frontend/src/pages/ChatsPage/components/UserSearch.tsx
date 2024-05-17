@@ -2,6 +2,8 @@ import { AutoComplete, Input } from "antd";
 import type { SelectProps } from "antd/es/select";
 import { useState, useEffect, useRef } from "react";
 
+import { useRouter } from "next/router";
+
 import { PersonObject, Avatar } from "react-chat-engine-advanced";
 
 import axios from "axios";
@@ -16,6 +18,8 @@ interface CustomChatFormProps {
 
 // User search component
 export default function userSearch(props: CustomChatFormProps) {
+  const router = useRouter();
+
   const didMountRef = useRef(false);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -64,6 +68,7 @@ export default function userSearch(props: CustomChatFormProps) {
     setOptions(query ? searchResult(query) : []);
   };
 
+  setTimeout(() => {}, 2000);
   const onSelect = (value: string) => {
     setLoading(true);
 
@@ -75,14 +80,20 @@ export default function userSearch(props: CustomChatFormProps) {
     const data = {
       usernames: [props.username, value],
     };
-    axios
-      .put("https://api.chatengine.io/chats/", data, { headers })
-      .then((r) => {
-        props.onSelect(r.data.id);
-        setLoading(false);
-        setQuery("");
-      })
-      .catch(() => setLoading(false));
+    try {
+      axios
+        .put("https://api.chatengine.io/chats/", data, { headers })
+        .then((r) => {
+          props.onSelect(r.data.id);
+          setLoading(false);
+          setQuery("");
+        })
+        .catch(() => setLoading(false));
+    } catch (err: any) {
+      if (err.response && err.response.status === 403) {
+        router.reload();
+      }
+    }
   };
 
   return (
