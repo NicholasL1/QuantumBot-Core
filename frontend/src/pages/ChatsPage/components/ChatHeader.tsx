@@ -89,9 +89,7 @@ export default function ChatHeader(props: CustomChatHeaderProps) {
           />
 
           <div className="ce-custom-header-text">
-            <div className="ce-custom-header-title">
-              {otherMember.first_name} {otherMember.last_name}
-            </div>
+            <div className="ce-custom-header-title">{otherMember.username}</div>
             <div className="ce-custom-header-subtitle">
               {otherMember.is_online ? "Online" : "Offline"}
             </div>
